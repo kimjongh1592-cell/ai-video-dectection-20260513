@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HCI 실험</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="page1" class="page active">
+        <div class="container">
+            <h2 class="title-red">Shorts Test</h2>
+            <p class="subtitle">데이터 입력을 위해 간단한 정보를 입력해주세요. (약 5분 소요)</p>
+            
+            <input type="text" id="userName" placeholder="이름">
+            <input type="number" id="userAge" placeholder="나이 (예: 25)">
+            
+            <select id="userGroup" style="margin-bottom: 15px; font-weight: bold; color: #ff4d4d; border: 2px solid #ff4d4d;">
+                <option value="A">Group A (실험군: 시작 전 가이드라인 제공)</option>
+                <option value="B">Group B (대조군: 가이드라인 없이 바로 시작)</option>
+            </select>
+            
+            <div style="text-align: left; background: #222; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; color: #ccc;">
+                <p style="margin-top: 0; margin-bottom: 10px; line-height: 1.4;">본 실험에서 수집된 데이터(이름, 나이)는 연구 분석 목적으로만 사용되며, 실험 종료 후 안전하게 폐기됩니다.</p>
+                <label style="display: flex; align-items: center; cursor: pointer; color: #fff; font-size: 14px; font-weight: bold;">
+                    <input type="checkbox" id="privacyConsent" style="width: 20px; height: 20px; margin: 0 10px 0 0;">
+                    개인정보 수집 및 이용에 동의합니다. (필수)
+                </label>
+            </div>
+
+            <button class="yt-btn" onclick="startExperiment()">실험 준비 완료</button>
+        </div>
+    </div>
+
+    <div id="pageGuideline" class="page overlay-page">
+        <div class="container">
+            <h2 class="title-red">사전 가이드라인 숙지</h2>
+            <p>본격적인 평가에 앞서,<br>아래 딥페이크 판별 가이드라인을 충분히 읽어주세요.</p>
+            
+            <div class="guideline-box">
+                <p><strong>[공식 딥페이크 판별 가이드라인]</strong></p>
+                <p>1. <strong>눈과 빛 반사</strong>: 눈 깜빡임 빈도가 비정상적이거나, 눈동자에 맺힌 빛 반사가 주변 조명과 어긋나는지 확인하세요.</p>
+                <p>2. <strong>입술과 음성 싱크</strong>: 말할 때 입 주변과 턱이 일그러지거나, 음성과 입술 움직임에 미세한 지연(Delay)이 발생하는지 관찰하세요.</p>
+                <p>3. <strong>피부와 경계선</strong>: 피부가 지나치게 매끄럽거나, 머리카락 경계선 및 안경테가 배경과 뭉개지는 현상(Flickering)을 확인하세요.</p>
+                <p>4. <strong>물리적 조명 오류</strong>: 인물의 얼굴과 몸에 드리워진 그림자 방향이 배경의 광원과 일치하지 않는지 분석하세요.</p>
+            </div>
+            
+            <button class="yt-btn" onclick="startReadyCountdown()">확인 완료 (테스트 시작)</button>
+        </div>
+    </div>
+
+    <div id="pageCountdown" class="page overlay-page">
+        <div class="container">
+            <h2 id="countdownTitle"></h2>
+            <h1 id="cdText" class="countdown-text">5</h1>
+        </div>
+    </div>
+
+    <div id="pageTest" class="page">
+        <div class="shorts-wrapper" id="testList"></div>
+    </div>
+
+    <div id="pageEnd" class="page overlay-page">
+        <div class="container">
+            <h2 class="title-red">실험이 종료되었습니다.</h2>
+            <p style="font-size: 18px; line-height: 1.6; margin-bottom: 30px;">30개의 영상 평가를 모두 마쳤습니다.<br>집중해서 참여해 주셔서 진심으로 감사합니다.</p>
+            <button class="yt-btn" onclick="proceedFromEnd()">다음 단계로 넘어가기</button>
+        </div>
+    </div>
+
+<div id="pageSurvey" class="page overlay-page">
+        <div class="container">
+            <h2 class="title-red">사후 설문</h2>
+            <p style="margin-bottom: 15px; font-size: 16px; line-height: 1.5;">방금 영상을 판별하실 때, <strong>어떤 요소를 가장 주의 깊게 보셨나요?</strong><br>아래 예시를 참고하여 자유롭게 작성해주세요.</p>
+            
+            <div style="background: #222; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; font-size: 14px; color: #aaa; border: 1px solid #444;">
+                <p style="margin: 0; color: #ddd; line-height: 1.6;">
+                    <strong>작성 예시:</strong> 눈 깜빡임 빈도나 눈동자 빛 반사의 어색함 등
+                </p>
+            </div>
+
+            <textarea id="surveyTextarea" placeholder="답변을 입력해주세요..." style="width: 100%; height: 120px; padding: 15px; border-radius: 8px; border: 1px solid #555; background: #111; color: #fff; box-sizing: border-box; font-size: 14px; resize: none; margin-bottom: 20px; font-family: inherit; line-height: 1.5;"></textarea>
+            
+            <button class="yt-btn" onclick="submitSurvey()">최종 결과 제출</button>
+        </div>
+    </div>
+
+    <div id="pageResult" class="page overlay-page">
+        <div class="container">
+            <h2 class="title-red">실험 최종 결과</h2>
+            <p>모든 프로세스가 완료되었습니다.</p>
+            <div id="scoreResult" style="background:#222; padding:20px; border-radius:10px; text-align:left; line-height:1.6; margin-bottom:20px; font-size:15px;">
+            </div>
+            <button class="yt-btn" style="background-color: #4CAF50; color: white;" onclick="downloadCSV()">
+                결과 데이터 다운로드 (연구자에게 전송)
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
